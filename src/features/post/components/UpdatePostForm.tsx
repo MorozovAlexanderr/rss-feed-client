@@ -3,11 +3,20 @@ import InputField from '@/components/Form/InputField';
 import TextareaField from '@/components/Form/TextareaField';
 import { useGetPostQuery, useUpdatePostMutation } from '@/api';
 import { PostCreationParams } from '@/features/post/types';
-import { Box, Button, CircularProgress, Typography } from '@mui/material';
+import { Box, Button, CircularProgress, Skeleton } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 type UpdatePostFormProps = {
   id: string;
+};
+
+const FormLoader = () => {
+  return (
+    <>
+      <Skeleton variant="rounded" height={56} sx={{ mt: 1 }} />
+      <Skeleton variant="rounded" height={230} sx={{ mt: 2 }} />
+    </>
+  );
 };
 
 const UpdatePostForm = ({ id }: UpdatePostFormProps) => {
@@ -26,11 +35,7 @@ const UpdatePostForm = ({ id }: UpdatePostFormProps) => {
   };
 
   if (isFetching) {
-    return (
-      <Typography fontSize="large" sx={{ mt: 2 }}>
-        Loading...
-      </Typography>
-    );
+    return <FormLoader />;
   }
 
   return (
@@ -41,11 +46,7 @@ const UpdatePostForm = ({ id }: UpdatePostFormProps) => {
       >
         {({ control }) => (
           <>
-            <InputField
-              name="title"
-              label="Title"
-              control={control}
-            />
+            <InputField name="title" label="Title" control={control} />
             <TextareaField
               name="body"
               label="Content"
