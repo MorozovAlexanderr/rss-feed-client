@@ -5,18 +5,18 @@ import {
   useController,
 } from 'react-hook-form';
 
-type InputFieldProps<TFormValues extends FieldValues> =
+type TextareaFieldProps<TFormValues extends FieldValues> =
   UseControllerProps<TFormValues> & {
     label: string;
     fieldProps?: TextFieldProps;
   };
 
-const InputField = <TFormValues extends FieldValues>({
+const TextareaField = <TFormValues extends FieldValues>({
   name,
   control,
   label,
   fieldProps,
-}: InputFieldProps<TFormValues>) => {
+}: TextareaFieldProps<TFormValues>) => {
   const {
     field: { ref, value, onChange },
     fieldState: { invalid, error },
@@ -31,9 +31,10 @@ const InputField = <TFormValues extends FieldValues>({
       value={value}
       name={name}
       label={label}
-      margin="normal"
-      required
+      multiline
       fullWidth
+      rows={16}
+      required
       inputRef={ref}
       error={invalid}
       helperText={error?.message}
@@ -43,4 +44,4 @@ const InputField = <TFormValues extends FieldValues>({
   );
 };
 
-export default InputField;
+export default TextareaField;

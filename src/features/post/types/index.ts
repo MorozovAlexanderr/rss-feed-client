@@ -19,6 +19,18 @@ export type PostsPagination = {
   totalPages: number;
 };
 
+export type GetPostsRequest = {
+  page: number;
+  search: string;
+  sortDir: SortDir;
+};
+
+export type PostCreationParams = {
+  creator: string;
+  title: string;
+  body: string;
+}
+
 export enum SortDir {
   Asc = 'asc',
   Desc = 'desc',

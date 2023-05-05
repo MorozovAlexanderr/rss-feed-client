@@ -20,7 +20,7 @@ const Form = <TFormValues extends Record<string, unknown>>({
     <Box
       component="form"
       noValidate
-      sx={{ mt: 1, maxWidth: 400 }}
+      sx={{ mt: 1 }}
       onSubmit={methods.handleSubmit(onSubmit)}
     >
       {children(methods)}

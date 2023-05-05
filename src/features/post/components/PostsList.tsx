@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import PostDetails from '@/features/post/components/PostDetails';
-import { Grid, Pagination, Skeleton } from '@mui/material';
+import { Box, Grid, Pagination, Skeleton } from '@mui/material';
 import { PostsManageContext } from '@/features/post/providers/PostsManageProvider';
 
 const ListLoader = () => {
@@ -28,10 +28,14 @@ const PostsList = () => {
     onChangePage(page);
   };
 
-  console.log(posts?.page);
-
   return (
-    <>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      }}
+    >
       <Grid container direction="column" gap={2}>
         {isFetching ? (
           <ListLoader />
@@ -54,7 +58,7 @@ const PostsList = () => {
         sx={{ my: 4, width: 'fit-content' }}
         onChange={handlePageChange}
       />
-    </>
+    </Box>
   );
 };
 

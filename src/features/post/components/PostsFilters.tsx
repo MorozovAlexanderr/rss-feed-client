@@ -18,7 +18,7 @@ const PostsFilters = () => {
   };
 
   return (
-    <Box sx={{ display: 'flex', my: 4 }}>
+    <Box sx={{ display: 'flex' }}>
       <SearchField
         value={search}
         sx={{ width: 400, mr: 2 }}

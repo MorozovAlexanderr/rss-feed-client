@@ -1,5 +1,5 @@
 import DialogModal from '@/components/UI/DialogModal';
-import { useDeletePostMutation } from '@/features/post/api';
+import { useDeletePostMutation } from '@/api';
 import { AccountCircle, Delete } from '@mui/icons-material';
 import {
   Box,
@@ -7,9 +7,10 @@ import {
   CardContent,
   CircularProgress,
   Grid,
-  Link,
+  Link as MuiLink,
   Typography,
 } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
 
 type PostDetailsProps = {
   id: string;
@@ -35,16 +36,21 @@ const PostDetails = ({ id, title, creator, date }: PostDetailsProps) => {
           <Box>
             <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
               <AccountCircle />
-              <Typography mx={1} fontSize={14} color="gray">
+              <Typography mx={1} fontSize="small" color="gray">
                 {creator}
               </Typography>
-              <Typography fontSize="medium" color="gray">
+              <Typography fontSize="small" color="gray">
                 {formattedDatetime}
               </Typography>
             </Box>
-            <Link href="#" fontSize="large">
+            <MuiLink
+              component={RouterLink}
+              to="/posts/create"
+              variant="body2"
+              fontSize="large"
+            >
               {title}
-            </Link>
+            </MuiLink>
           </Box>
           {isDeleting ? (
             <CircularProgress size={24} color="inherit" />

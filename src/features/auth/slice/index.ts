@@ -1,4 +1,4 @@
-import { authApi } from '@/features/auth/api';
+import { api } from '@/api';
 import { AuthState } from '@/features/auth/types';
 import { RootState } from '@/lib/store';
 import { createSlice } from '@reduxjs/toolkit';
@@ -16,8 +16,8 @@ const authSlice = createSlice({
     builder.addMatcher(
       (action) => {
         return (
-          authApi.endpoints.register.matchFulfilled(action) ||
-          authApi.endpoints.login.matchFulfilled(action)
+          api.endpoints.register.matchFulfilled(action) ||
+          api.endpoints.login.matchFulfilled(action)
         );
       },
       (state, { payload }) => {

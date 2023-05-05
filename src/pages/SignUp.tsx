@@ -6,18 +6,19 @@ import {
   Box,
   Button,
   CircularProgress,
+  Container,
   Link as MuiLink,
   Typography,
 } from '@mui/material';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { useRegisterMutation } from '@/features/auth/api';
+import { useRegisterMutation } from '@/api';
 
 const SignUp = () => {
   const navigate = useNavigate();
   const [register, { isLoading, error }] = useRegisterMutation();
 
-  const handleFormSubmit = async (data: UserSignUpParams) => {
+  const handleSubmit = async (data: UserSignUpParams) => {
     try {
       await register(data).unwrap();
       navigate('/posts');
@@ -27,12 +28,13 @@ const SignUp = () => {
   };
 
   return (
-    <Box
+    <Container
       sx={{
         marginTop: 8,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        width: 400,
       }}
     >
       <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
@@ -41,7 +43,7 @@ const SignUp = () => {
       <Typography component="h1" variant="h5">
         Sign up
       </Typography>
-      <Form<UserSignUpParams> onSubmit={handleFormSubmit}>
+      <Form<UserSignUpParams> onSubmit={handleSubmit}>
         {({ control }) => (
           <>
             <InputField name="username" control={control} label="Name" />
@@ -78,7 +80,7 @@ const SignUp = () => {
           </>
         )}
       </Form>
-    </Box>
+    </Container>
   );
 };
 

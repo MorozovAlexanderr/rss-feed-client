@@ -1,4 +1,4 @@
-import { useGetPostsQuery } from '@/features/post/api';
+import { useGetPostsQuery } from '@/api';
 import { PostsPagination, SortDir } from '@/features/post/types';
 import { useDebounce } from '@/hooks/useDebounce';
 import { ReactNode, createContext, useState } from 'react';

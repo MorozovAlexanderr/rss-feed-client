@@ -13,13 +13,13 @@ import { UserSignInParams } from '@/features/auth/types';
 import Form from '@/components/Form/Form';
 import InputField from '@/components/Form/InputField';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { useLoginMutation } from '@/features/auth/api';
+import { useLoginMutation } from '@/api';
 
 const SignIn = () => {
   const navigate = useNavigate();
   const [login, { isLoading, error }] = useLoginMutation();
 
-  const handleFormSubmit = async (data: UserSignInParams) => {
+  const handleSubmit = async (data: UserSignInParams) => {
     try {
       await login(data).unwrap();
       navigate('/posts');
@@ -29,12 +29,13 @@ const SignIn = () => {
   };
 
   return (
-    <Box
+    <Container
       sx={{
         marginTop: 8,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        width: 400,
       }}
     >
       <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
@@ -43,7 +44,7 @@ const SignIn = () => {
       <Typography component="h1" variant="h5">
         Sign in
       </Typography>
-      <Form<UserSignInParams> onSubmit={handleFormSubmit}>
+      <Form<UserSignInParams> onSubmit={handleSubmit}>
         {({ control }) => (
           <>
             <InputField name="email" control={control} label="Email address" />
@@ -79,7 +80,7 @@ const SignIn = () => {
           </>
         )}
       </Form>
-    </Box>
+    </Container>
   );
 };
 
