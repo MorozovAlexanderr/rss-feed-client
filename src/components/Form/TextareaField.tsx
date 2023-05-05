@@ -33,7 +33,7 @@ const TextareaField = <TFormValues extends FieldValues>({
       label={label}
       multiline
       fullWidth
-      rows={16}
+      rows={10}
       required
       inputRef={ref}
       error={invalid}
