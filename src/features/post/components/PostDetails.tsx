@@ -45,7 +45,7 @@ const PostDetails = ({ id, title, creator, date }: PostDetailsProps) => {
             </Box>
             <MuiLink
               component={RouterLink}
-              to="/posts/create"
+              to={`/posts/${id}`}
               variant="body2"
               fontSize="large"
             >

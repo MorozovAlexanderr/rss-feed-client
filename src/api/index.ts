@@ -48,6 +48,18 @@ export const api = createApi({
       },
       invalidatesTags: ['Posts'],
     }),
+    getPost: build.query<Post, string>({
+      query: (id) => `posts/${id}`,
+      providesTags: (result, error, id) => [{ type: 'Posts', id }],
+    }),
+    updatePost: build.mutation<Post, Pick<Post, '_id'> & PostCreationParams>({
+      query: ({ _id, ...patch }) => ({
+        url: `posts/${_id}`,
+        method: 'PATCH',
+        body: patch,
+      }),
+      invalidatesTags: ['Posts'],
+    }),
     deletePost: build.mutation<{ success: boolean }, string>({
       query(id) {
         return {
@@ -65,5 +77,7 @@ export const {
   useLoginMutation,
   useGetPostsQuery,
   useAddPostMutation,
+  useGetPostQuery,
+  useUpdatePostMutation,
   useDeletePostMutation,
 } = api;
