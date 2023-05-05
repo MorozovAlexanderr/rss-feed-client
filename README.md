@@ -1,1 +1,2 @@
-To run app use ### `npm run dev`
+To run app use 
+### `npm run dev`
