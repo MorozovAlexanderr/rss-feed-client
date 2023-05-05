@@ -11,16 +11,20 @@ import {
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { authApi } from '@/features/auth/api';
 import { authReducer } from '@/features/auth/slice';
+import { postApi } from '@/features/post/api';
+import { postReducer } from '@/features/post/slice';
 
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: ['api'],
+  blacklist: ['api', 'post'],
 };
 
 const reducer = combineReducers({
   [authApi.reducerPath]: authApi.reducer,
+  [postApi.reducerPath]: postApi.reducer,
   auth: authReducer,
+  post: postReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);
@@ -32,7 +36,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(authApi.middleware),
+    }).concat([authApi.middleware, postApi.middleware]),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

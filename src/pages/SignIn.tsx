@@ -72,8 +72,7 @@ const SignIn = () => {
               component={RouterLink}
               to="/register"
               variant="body2"
-              display="block"
-              align="center"
+              sx={{ display: 'block', textAlign: 'center' }}
             >
               {"Don't have an account? Sign Up"}
             </MuiLink>
