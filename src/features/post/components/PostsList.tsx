@@ -14,7 +14,8 @@ const ListLoader = () => {
 };
 
 const PostsList = () => {
-  const { posts, isFetching, onChangePage } = useContext(PostsManageContext);
+  const { posts, currentPage, isFetching, onChangePage } =
+    useContext(PostsManageContext);
 
   const handlePageChange = (
     event: React.ChangeEvent<unknown>,
@@ -27,6 +28,8 @@ const PostsList = () => {
     onChangePage(page);
   };
 
+  console.log(posts?.page);
+
   return (
     <>
       <Grid container direction="column" gap={2}>
@@ -36,6 +39,7 @@ const PostsList = () => {
           posts?.docs.map((post) => (
             <PostDetails
               key={post._id}
+              id={post._id}
               title={post.title}
               creator={post.creator}
               date={post.date}
@@ -44,7 +48,7 @@ const PostsList = () => {
         )}
       </Grid>
       <Pagination
-        page={posts?.page}
+        page={currentPage}
         count={posts?.totalPages}
         size="large"
         sx={{ my: 4, width: 'fit-content' }}

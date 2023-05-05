@@ -6,6 +6,7 @@ import { ReactNode, createContext, useState } from 'react';
 type PostsManageContextParams = {
   posts: PostsPagination | undefined;
   isFetching: boolean;
+  currentPage: number;
   search: string;
   sortDir: SortDir;
   onChangeSearch: (value: string) => void;
@@ -16,6 +17,7 @@ type PostsManageContextParams = {
 export const PostsManageContext = createContext<PostsManageContextParams>({
   posts: undefined,
   isFetching: false,
+  currentPage: 1,
   search: '',
   sortDir: SortDir.Desc,
   onChangeSearch: () => {
@@ -34,30 +36,30 @@ type PostsFiltersProviderProps = {
 };
 
 const PostsManegeProvider = ({ children }: PostsFiltersProviderProps) => {
-  const [page, setPage] = useState<number>(1);
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const [search, setSearch] = useState<string>('');
   const [sortDir, setSortDir] = useState<SortDir>(SortDir.Desc);
 
   const debouncedSearch = useDebounce<string>(search, 500);
 
   const { data: posts, isFetching } = useGetPostsQuery({
-    page,
+    page: currentPage,
     search: debouncedSearch,
     sortDir,
   });
 
   const handleSearchChange = (newSearch: string) => {
     setSearch(newSearch);
-    setPage(1); // reset page when search is changed
+    setCurrentPage(1); // reset page when search is changed
   };
 
   const handleSortChange = (newSortDir: SortDir) => {
     setSortDir(newSortDir);
-    setPage(1); // reset page when sortDir is changed
+    setCurrentPage(1); // reset page when sortDir is changed
   };
 
   const handlePageChange = (newPage: number) => {
-    setPage(newPage);
+    setCurrentPage(newPage);
   };
 
   return (
@@ -65,6 +67,7 @@ const PostsManegeProvider = ({ children }: PostsFiltersProviderProps) => {
       value={{
         posts,
         isFetching,
+        currentPage,
         search,
         sortDir,
         onChangeSearch: handleSearchChange,

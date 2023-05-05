@@ -1,35 +1,60 @@
+import DialogModal from '@/components/UI/DialogModal';
+import { useDeletePostMutation } from '@/features/post/api';
 import { AccountCircle, Delete } from '@mui/icons-material';
-import { Box, Card, CardContent, Grid, Typography } from '@mui/material';
+import {
+  Box,
+  Card,
+  CardContent,
+  CircularProgress,
+  Grid,
+  Link,
+  Typography,
+} from '@mui/material';
 
 type PostDetailsProps = {
+  id: string;
   title: string;
   creator: string;
   date: string;
 };
 
-const PostDetails = ({ title, creator, date }: PostDetailsProps) => {
+const PostDetails = ({ id, title, creator, date }: PostDetailsProps) => {
+  const [deletePost, { isLoading: isDeleting }] = useDeletePostMutation();
+
   const dateObj = new Date(date);
   const formattedDatetime = `${dateObj.toLocaleDateString()} ${dateObj.toLocaleTimeString()}`;
 
+  const handleDelete = () => {
+    deletePost(id);
+  };
+
   return (
-    <Card sx={{ cursor: 'pointer' }}>
+    <Card>
       <CardContent>
         <Grid container justifyContent="space-between" alignItems="center">
           <Box>
-            <Grid container alignItems="center">
+            <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
               <AccountCircle />
               <Typography mx={1} fontSize={14} color="gray">
                 {creator}
               </Typography>
-              <Typography fontSize={14} color="gray">
+              <Typography fontSize="medium" color="gray">
                 {formattedDatetime}
               </Typography>
-            </Grid>
-            <Typography fontSize={18} mt={2}>
+            </Box>
+            <Link href="#" fontSize="large">
               {title}
-            </Typography>
+            </Link>
           </Box>
-          <Delete />
+          {isDeleting ? (
+            <CircularProgress size={24} color="inherit" />
+          ) : (
+            <Delete
+              fontSize="large"
+              sx={{ cursor: 'pointer' }}
+              onClick={handleDelete}
+            />
+          )}
         </Grid>
       </CardContent>
     </Card>
