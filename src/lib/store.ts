@@ -9,9 +9,7 @@ import {
   REGISTER,
 } from 'redux-persist';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { authApi } from '@/features/auth/api';
 import { authReducer } from '@/features/auth/slice';
-import { postReducer } from '@/features/post/slice';
 import { api } from '@/api';
 
 const persistConfig = {
@@ -23,7 +21,6 @@ const persistConfig = {
 const reducer = combineReducers({
   [api.reducerPath]: api.reducer,
   auth: authReducer,
-  post: postReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);
